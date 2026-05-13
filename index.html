@@ -1,0 +1,351 @@
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Lesotho VR Tour Guide</title>
+
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+
+    <style>
+        *{
+            margin:0;
+            padding:0;
+            box-sizing:border-box;
+            font-family:'Poppins', sans-serif;
+        }
+
+        body{
+            background:#0f172a;
+            color:white;
+            overflow-x:hidden;
+        }
+
+        /* Navbar */
+        nav{
+            display:flex;
+            justify-content:space-between;
+            align-items:center;
+            padding:20px 8%;
+            background:rgba(0,0,0,0.4);
+            backdrop-filter:blur(8px);
+            position:fixed;
+            width:100%;
+            top:0;
+            z-index:1000;
+        }
+
+        nav h1{
+            font-size:28px;
+            color:#38bdf8;
+        }
+
+        nav ul{
+            display:flex;
+            list-style:none;
+            gap:25px;
+        }
+
+        nav ul li a{
+            text-decoration:none;
+            color:white;
+            font-weight:500;
+            transition:0.3s;
+        }
+
+        nav ul li a:hover{
+            color:#38bdf8;
+        }
+
+        /* Hero Section */
+        .hero{
+            height:100vh;
+            background:
+                linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)),
+                url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=1600&q=80');
+            background-size:cover;
+            background-position:center;
+            display:flex;
+            align-items:center;
+            justify-content:center;
+            text-align:center;
+            padding:20px;
+        }
+
+        .hero-content{
+            max-width:800px;
+        }
+
+        .hero h2{
+            font-size:60px;
+            margin-bottom:20px;
+        }
+
+        .hero p{
+            font-size:20px;
+            line-height:1.8;
+            margin-bottom:35px;
+            color:#e2e8f0;
+        }
+
+        .buttons{
+            display:flex;
+            justify-content:center;
+            gap:20px;
+            flex-wrap:wrap;
+        }
+
+        .btn{
+            padding:15px 30px;
+            border:none;
+            border-radius:12px;
+            font-size:16px;
+            font-weight:600;
+            cursor:pointer;
+            transition:0.3s;
+            text-decoration:none;
+        }
+
+        .primary-btn{
+            background:#38bdf8;
+            color:#0f172a;
+        }
+
+        .primary-btn:hover{
+            background:#0ea5e9;
+            transform:translateY(-3px);
+        }
+
+        .secondary-btn{
+            background:transparent;
+            border:2px solid #38bdf8;
+            color:white;
+        }
+
+        .secondary-btn:hover{
+            background:#38bdf8;
+            color:#0f172a;
+        }
+
+        /* Features Section */
+        .features{
+            padding:80px 8%;
+            background:#111827;
+        }
+
+        .section-title{
+            text-align:center;
+            margin-bottom:50px;
+        }
+
+        .section-title h3{
+            font-size:40px;
+            color:#38bdf8;
+        }
+
+        .cards{
+            display:grid;
+            grid-template-columns:repeat(auto-fit, minmax(250px, 1fr));
+            gap:25px;
+        }
+
+        .card{
+            background:#1e293b;
+            padding:30px;
+            border-radius:18px;
+            transition:0.3s;
+        }
+
+        .card:hover{
+            transform:translateY(-8px);
+            background:#334155;
+        }
+
+        .card h4{
+            margin:20px 0;
+            color:#38bdf8;
+        }
+
+        .card p{
+            color:#cbd5e1;
+            line-height:1.7;
+        }
+
+        /* Landmarks */
+        .landmarks{
+            padding:80px 8%;
+            background:#0f172a;
+        }
+
+        .landmark-grid{
+            display:grid;
+            grid-template-columns:repeat(auto-fit, minmax(280px, 1fr));
+            gap:25px;
+        }
+
+        .landmark-card{
+            background:#1e293b;
+            border-radius:20px;
+            overflow:hidden;
+            transition:0.3s;
+        }
+
+        .landmark-card:hover{
+            transform:scale(1.03);
+        }
+
+        .landmark-card img{
+            width:100%;
+            height:220px;
+            object-fit:cover;
+        }
+
+        .landmark-info{
+            padding:20px;
+        }
+
+        .landmark-info h4{
+            margin-bottom:10px;
+            color:#38bdf8;
+        }
+
+        .landmark-info p{
+            color:#cbd5e1;
+            line-height:1.6;
+        }
+
+        /* Footer */
+        footer{
+            background:#020617;
+            text-align:center;
+            padding:25px;
+            color:#94a3b8;
+        }
+
+        @media(max-width:768px){
+            .hero h2{
+                font-size:42px;
+            }
+
+            nav ul{
+                display:none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Navigation -->
+    <nav>
+        <h1>Lesotho VR Guide</h1>
+
+        <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">Virtual Tours</a></li>
+            <li><a href="#">Landmarks</a></li>
+            <li><a href="#">History</a></li>
+            <li><a href="#">Contact</a></li>
+        </ul>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-content">
+            <h2>Explore Lesotho in Virtual Reality</h2>
+
+            <p>
+                Discover breathtaking mountains, historical landmarks,
+                and cultural heritage sites around Lesotho in a fully
+                interactive 3D virtual tour experience.
+            </p>
+
+            <div class="buttons">
+                <a href="cultural.html" class="btn primary-btn" id="startTourBtn">
+                    Start Virtual Tour
+                </a>
+
+                <a href="#" class="btn secondary-btn" id="viewMapBtn">
+                    View Interactive Map
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Map Section (hidden by default) -->
+    <section id="mapSection" style="display:none; padding: 60px 8% 40px 8%; background: #1e293b; text-align: center;">
+        <h3 style="color:#38bdf8; margin-bottom: 30px;">Lesotho Interactive Map</h3>
+        <div style="display: flex; justify-content: center;">
+            <iframe
+                id="googleMapIframe"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d37613.01389375497!2d27.5120128!3d-29.3339136!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x1e8fdbb7e2e7e7b7%3A0x7e7e7e7e7e7e7e7e!2sLesotho!5e0!3m2!1sen!2sls!4v1715620000000!5m2!1sen!2sls"
+                width="90vw"
+                style="max-width:800px; height:400px; border:2px solid #38bdf8; border-radius:12px; width:100%;"
+                allowfullscreen=""
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
+            </iframe>
+        </div>
+    </section>
+
+    <!-- Features -->
+    <section class="features">
+
+        <div class="section-title">
+            <h3>Application Features</h3>
+        </div>
+
+        <div class="cards">
+
+            <div class="card">
+                <h4>🌍 3D Virtual Tours</h4>
+                <p>
+                    Walk around famous landmarks in Lesotho using immersive
+                    VR and 360° interactive environments.
+                </p>
+            </div>
+
+            <div class="card">
+                <h4>🗺 Interactive Map</h4>
+                <p>
+                    Navigate through districts and tourist destinations
+                    with a dynamic smart map system.
+                </p>
+            </div>
+
+            <div class="card">
+                <h4>🎧 Audio Tour Guide</h4>
+                <p>
+                    Listen to narrated historical facts and stories
+                    while exploring landmarks virtually.
+                </p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Landmarks -->
+    <!-- Landmarks section removed -->
+
+    <!-- Footer -->
+    <footer>
+        <p>
+            © 2026 Lesotho VR Tour Guide | Explore Lesotho Virtually
+        </p>
+    </footer>
+
+</body>
+<script>
+// Show map section and scroll to it when 'View Interactive Map' is clicked
+document.getElementById('viewMapBtn').addEventListener('click', function(e) {
+    e.preventDefault();
+    var mapSection = document.getElementById('mapSection');
+    mapSection.style.display = 'block';
+    mapSection.scrollIntoView({ behavior: 'smooth' });
+});
+</script>
+</html>
